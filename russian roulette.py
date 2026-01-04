@@ -11,8 +11,10 @@ intents.message_content = True
 intents.members = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
-guild_players = {}  # players per guild
-game_difficulty = {}  # difficulty per guild
+guild_players = {}
+game_difficulty = {}
+game_owner = {}
+
 
 duration = timedelta(minutes=5)
 
@@ -56,7 +58,9 @@ async def on_ready():
 async def russian_roulette(interaction: discord.Interaction, difficulty: app_commands.Choice[str]):
     guild_id = interaction.guild.id
     guild_players[guild_id] = []
+    game_owner[guild_id] = interaction.user
     game_difficulty[guild_id] = difficulty.value
+
 
     await interaction.response.send_message(
         'Type "Me!" in chat to join. Type "Done." when all players are ready.', ephemeral=False
@@ -88,11 +92,9 @@ async def on_message(message):
         else:
             await message.channel.send(f"{message.author.display_name} is already in the game!")
 
-    # Finish selection
     elif "done." in content:
-        if len(players) < 2:
-            await message.channel.send("Minimum of 2 players required. Game canceled.")
-            guild_players[guild_id].clear()
+        if message.author != game_owner.get(guild_id):
+            await message.channel.send(f"❌ Only {game_owner[guild_id].display_name}, the person who started the game, can type 'Done.'")
             return
         elif len(players) > 10:
             await message.channel.send("Maximum 10 players allowed. Game canceled.")
@@ -123,17 +125,17 @@ async def on_message(message):
                 await loser.ban(reason="Russian roulette loss (Hard)", delete_message_days=0)
 
             guild_players[guild_id].clear()
+            game_owner.pop(guild_id, None)
             game_difficulty.pop(guild_id, None)
 
     await bot.process_commands(message)
 
 @bot.tree.command(name="check_roles", description="Check if bots role is high enough to kick/ban/mute players")
 async def check_roles(interaction: discord.Interaction):
-    bot_member = interaction.guild.me  # the bot as a Member object
-    highest_role = bot_member.top_role  # highest role of the bot
+    bot_member = interaction.guild.me 
+    highest_role = bot_member.top_role 
 
-    # Compare bot's top role to guild members
-    if highest_role.position < len(interaction.guild.roles) - 1:  # bot is not at the top
+    if highest_role.position < len(interaction.guild.roles) - 1:
         await interaction.response.send_message(
             f"⚠️ The bots role '{highest_role.name}' is not at the top of all the server roles. "
             f"Please move it above the players (roles) that the bot should be able to kick/ban/mute. Its impossible to act on the server owner."
@@ -143,4 +145,3 @@ async def check_roles(interaction: discord.Interaction):
 
 
 bot.run(TOKEN)
-
