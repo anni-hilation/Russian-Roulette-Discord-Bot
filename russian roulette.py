@@ -18,6 +18,27 @@ duration = timedelta(minutes=5)
 
 TOKEN = "YOUR_TOKEN_HERE"
 
+HELP_TEXT = """
+**🎲 Russian Roulette Bot Help**
+
+**Commands:**
+/russian_roulette - Start a game. Users can type "Me!" to join and "Done." to finish player selection.
+/help - Get help.
+/check_roles - Check if bots role is high enough to reliably mute/kick/ban members.
+
+**Game Rules:**
+- Minimum 2 players, maximum 10 players per game.
+- Only the person who started the game can type "Done."
+- The bot will randomly select a loser.
+
+**Punishments:**
+- Easy: 5-minute mute
+- Medium: Kick
+- Hard: Ban
+
+⚠️ The bot cannot mute, kick or ban the server owner.
+"""
+
 @bot.event
 async def on_ready():
     await bot.tree.sync()
@@ -106,4 +127,20 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
+@bot.tree.command(name="check_roles", description="Check if bots role is high enough to kick/ban/mute players")
+async def check_roles(interaction: discord.Interaction):
+    bot_member = interaction.guild.me  # the bot as a Member object
+    highest_role = bot_member.top_role  # highest role of the bot
+
+    # Compare bot's top role to guild members
+    if highest_role.position < len(interaction.guild.roles) - 1:  # bot is not at the top
+        await interaction.response.send_message(
+            f"⚠️ The bots role '{highest_role.name}' is not at the top of all the server roles. "
+            f"Please move it above the players (roles) that the bot should be able to kick/ban/mute. Its impossible to act on the server owner."
+        )
+    else:
+        await interaction.response.send_message("✅ The role is high enough to act on members!")
+
+
 bot.run(TOKEN)
+
