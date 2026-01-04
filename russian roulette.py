@@ -18,7 +18,7 @@ game_owner = {}
 
 duration = timedelta(minutes=5)
 
-TOKEN = "YOUR_TOKEN_HERE"
+TOKEN = "YOUR_BOT_TOKEN_HERE"
 
 HELP_TEXT = """
 **🎲 Russian Roulette Bot Help**
@@ -138,10 +138,14 @@ async def check_roles(interaction: discord.Interaction):
     if highest_role.position < len(interaction.guild.roles) - 1:
         await interaction.response.send_message(
             f"⚠️ The bots role '{highest_role.name}' is not at the top of all the server roles. "
-            f"Please move it above the players (roles) that the bot should be able to kick/ban/mute. Its impossible to act on the server owner."
+            f"Please move it above the players (roles) that the bot should be able to kick/ban/mute. Its impossible to act on the server owner.", ephemeral=True
         )
     else:
-        await interaction.response.send_message("✅ The role is high enough to act on members!")
+        await interaction.response.send_message("✅ The role is high enough to act on members!", ephemeral=True)
+
+@bot.tree.command(name="help", description="Show instructions/info")
+async def help_command(interaction: discord.Interaction):
+    await interaction.response.send_message(HELP_TEXT, ephemeral=True)
 
 
 bot.run(TOKEN)
