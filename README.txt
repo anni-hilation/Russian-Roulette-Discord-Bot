@@ -1,5 +1,6 @@
 Russian Roulette Discord Bot
-i will try to find a free hosting service so that this bot can be installed in your guilds/servers.
+I will try to find a free hosting service so that this bot can be installed in your guilds/servers.
+I cant find shit. I wish i had a raspberrry pi so badddddduh.
 Current state: not hosted
 
 Commands:
@@ -47,6 +48,7 @@ simply move their role above the bots and ignore the warning.
 -------------------------------------------------------------------------------------
 
 Relied medium-heavily on chatGPT for this one but im definetly starting to learn.
+
 
 
 
