@@ -29,7 +29,7 @@ When using /help, the following text shows up:
 
     ⚠️ The bot cannot mute, kick or ban the server owner.
 
-When using /russian_roulette, you pick the "difficulty"
+When using /russian_roulette, you are required to pick the "difficulty"
 Easy = loser gets muted for 5 mins
 Medium = loser gets kicked
 Hard = loser gets banned
@@ -48,3 +48,4 @@ The Server owner cannot join.
 
 
 Relied medium-heavily on chatGPT for this one but im definetly starting to learn.
+
