@@ -2,6 +2,7 @@ Russian Roulette Discord Bot
 I will try to find a free hosting service so that this bot can be installed in your guilds/servers.
 I cant find shit. I wish i had a raspberrry pi so badddddduh.
 Current state: not hosted
+https://discord.com/oauth2/authorize?client_id=1457398787550220566&permissions=1101659180038&integration_type=0&scope=bot+applications.commands
 
 Commands:
 
@@ -48,6 +49,7 @@ simply move their role above the bots and ignore the warning.
 -------------------------------------------------------------------------------------
 
 Relied medium-heavily on chatGPT for this one but im definetly starting to learn.
+
 
 
 
