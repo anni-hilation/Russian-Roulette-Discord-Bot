@@ -33,6 +33,10 @@ When using /russian_roulette, you are required to pick the "difficulty"
 Easy = loser gets muted for 5 mins
 Medium = loser gets kicked
 Hard = loser gets banned
+After executing the command 2-10 Players have to type "Me!" in Chat to join.
+"Done." is typed to finish the player-selection. Only the person, who ran the command can use "Done.".
+Both "Done." and "Me!" case and symbol sensitive to Prevent accidental Input.
+The Server owner cannot join.
 
 When using /check_roles the bot measures if there are any roles above it.
 If there are, its going to show an "Error" and prompt you to move the roles below it. 
@@ -40,13 +44,9 @@ The bot only needs to be above the roles that potential players might have.
 If you want to make people, like for example mods/admins immortal,
 simply move their role above the bots and ignore the warning.
 
-After executing the command 2-10 Players have to type "Me!" in Chat to join.
-"Done." is typed to finish the player-selection. Only the person, who ran the command can use "Done.".
-Both "Done." and "Me!" case and symbol sensitive to Prevent accidental Input.
-The Server owner cannot join.
-
-
+-------------------------------------------------------------------------------------
 
 Relied medium-heavily on chatGPT for this one but im definetly starting to learn.
+
 
 
